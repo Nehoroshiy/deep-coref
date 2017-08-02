@@ -4,12 +4,25 @@ import directories
 import numpy as np
 
 
+#MENTION_TYPES = {
+#    "PRONOMINAL": 0,
+#    "NOMINAL": 1,
+#    "PROPER": 2,
+#   "LIST": 3
+#}
+
 MENTION_TYPES = {
-    "PRONOMINAL": 0,
-    "NOMINAL": 1,
-    "PROPER": 2,
-    "LIST": 3
+    'poss': 0,
+    'pron': 1,
+    'undef': 2,
+    'rel': 3,
+    'noun': 4,
+    'refl': 5,
+    'dem': 6,
+    'def': 7,
+    'appo': 8
 }
+
 MENTION_NUM, SENTENCE_NUM, START_INDEX, END_INDEX, MENTION_TYPE, CONTAINED = 0, 1, 2, 3, 4, 5
 
 
@@ -94,8 +107,8 @@ class MentionDataBuilder:
             get_word(end_index),
             get_word(start_index - 2),
             get_word(end_index + 1),
-            vectors[m["dep_parent"]],
-            vectors["dep=" + m["dep_relation"]]
+            #vectors[m["dep_parent"]],
+            #vectors["dep=" + m["dep_relation"]]
         ], dtype='int32'))
 
         def span_vector(start, end):
@@ -545,7 +558,7 @@ def get_dense_features(m1_features, m2_features, pair_features, document_feature
 def get_mention_features(m, doc_size, model_props):
     features = []
     if model_props.use_mention_type:
-        features.append(one_hot(m[:, MENTION_TYPE], 4))
+        features.append(one_hot(m[:, MENTION_TYPE], len(MENTION_TYPES)))
     if model_props.use_length:
         features.append(distance(np.subtract(m[:, END_INDEX] - m[:, START_INDEX], 1)))
     if model_props.use_position:

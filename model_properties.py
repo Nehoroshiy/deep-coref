@@ -21,21 +21,21 @@ class MentionRankingProps:
                  # mention features
                  use_length=True, use_mention_type=True,  use_position=True, use_dep_reln=False,
                  # distance and genre features
-                 use_distance=True, use_genre=True,
+                 use_distance=True, use_genre=False,
                  # averaged word embedding features
                  use_spans=True, use_doc_embedding=True):
         if layer_sizes is None:
-            layer_sizes = [1000, 500, 500]
+            layer_sizes = [200, 100, 100]
         if pair_features is None:
             pair_features=[
                # speaker features
-               "same-speaker",
-               "antecedent-is-mention-speaker",
-               "mention-is-antecedent-speaker",
+               #"same-speaker",
+               #"antecedent-is-mention-speaker",
+               #"mention-is-antecedent-speaker",
                # string-matching features
-               "relaxed-head-match",
+               #"relaxed-head-match",
                "exact-string-match",
-               "relaxed-string-match",
+               #"relaxed-string-match",
            ]
 
         self.load_weights_from = load_weights_from

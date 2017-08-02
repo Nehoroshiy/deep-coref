@@ -21,7 +21,7 @@ def write_words():
             for mention in d["mentions"].values():
                 for w in mention["sentence"]:
                     words[word_vectors.normalize(w)] += inc
-                words[word_vectors.normalize(mention["dep_relation"])] += 1
+                #words[word_vectors.normalize(mention["dep_relation"])] += 1
     utils.write_pickle(words, directories.MISC + 'word_counts.pkl')
 
 
